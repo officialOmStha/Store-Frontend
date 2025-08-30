@@ -33,8 +33,14 @@ const Home = () => {
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col w-[30%] p-4 border rounded-lg shadow bg-gray-50 transition-transform hover:translate-y-[-8px]"
+              className="flex flex-col items-center w-[30%] p-4 border rounded-lg shadow bg-gray-50 transition-transform hover:translate-y-[-8px]"
             >
+              <img 
+              src={item.image} 
+              alt={item.image} 
+              width={150}
+              loading="lazy"
+              />
               <h2 className="font-bold text-lg">{item.name}</h2>
               <p className="text-gray-700">{item.description}</p>
               <span className="text-sm text-yellow-600">

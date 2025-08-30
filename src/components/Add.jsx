@@ -37,6 +37,7 @@ import { Link } from "react-router-dom";
 const Add = () => {
   const [formData, setFormData] = useState({
     name: "",
+    image: "",
     description: "",
     price: "",
     category_id: ""
@@ -74,6 +75,14 @@ const Add = () => {
           placeholder="Item name"
           name="name"
           value={formData.name}
+          onChange={handleChange}
+          className="p-2 border rounded"
+        />
+
+        <textarea
+          placeholder="Image link... "
+          name="image"
+          value={formData.image}
           onChange={handleChange}
           className="p-2 border rounded"
         />
