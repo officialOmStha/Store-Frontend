@@ -23,13 +23,14 @@ const Home = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-white flex flex-col">
+    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-white flex flex-col items-center justify-center">
       <h1 className="text-center text-4xl ">Nagina's Store</h1>
       <Link to={"add"}>Add item</Link>
+      <Link to={"login"}>Login</Link>
       {loading ? (
         <div>Loading ...</div>
       ) : (
-        <div className="flex flex-wrap gap-6 w-full mt-8">
+        <div className="flex flex-wrap gap-6 w-full mt-8 items-center justify-center">
           {items.map((item) => (
             <div
               key={item.id}

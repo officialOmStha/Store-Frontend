@@ -1,35 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-
-
-// const Add = () => {
-//   return (
-//     <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-white flex flex-col items-center justify-center">
-//       <h2>Add Items</h2>
-//       <form className="flex flex-col gap-4 w-[400px] p-6 rounded-2xl bg-white/50 backdrop-blur-md shadow">
-//         <input
-//           type="text"
-//           placeholder="Item name"
-//           name="name"
-//           className="p-2 border rounded"
-//         />
-
-//         <textarea placeholder="Description..." className="p-2 border rounded" name="description"/>
-
-//         <input type="number" className="p-2 border rounded" name="price"/>
-
-//         <select className="p-2 border rounded" name="category">
-//           <option value="">-- Select Category --</option>
-//           <option value="1">Sun Screen</option>
-//           <option value="2">Moisterizer</option>
-//         </select>
-//       </form>
-//     </section>
-//   );
-// };
-
-// export default Add;
-
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
