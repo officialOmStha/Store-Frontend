@@ -1,3 +1,4 @@
+// src/components/Add.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,33 +12,70 @@ const Add = () => {
     category_id: ""
   });
 
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   // Update form data when user types/selects
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Submit form to API
+  // Submit form to API (requires login)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
     try {
-      const res = await axios.post("http://127.0.0.1:8000/", formData);
+      const token = localStorage.getItem("access"); // use the same key as in login
+      if (!token) {
+        setError("You are not logged in.");
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.post(
+        "http://127.0.0.1:8000/additem/",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       console.log("Item created:", res.data);
-      alert("Item added successfully!");
-      setFormData({ name: "", description: "", price: "", category_id: "" });
+      setSuccess("Item added successfully!");
+      setFormData({
+        name: "",
+        image: "",
+        description: "",
+        price: "",
+        category_id: ""
+      });
     } catch (err) {
-      console.error("Error adding item:", err);
-      alert("Failed to add item.");
+      console.error("Error adding item:", err.response?.data || err.message);
+      setError(err.response?.data?.detail || "Failed to add item. Check console.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-white flex flex-col items-center justify-center">
-      <h2 className="text-2xl font-bold mb-4">Add Items</h2>
-      <Link to={"/"}>Home</Link>
+    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-gray-100 flex flex-col items-center justify-center">
+      <h2 className="text-2xl font-bold mb-4">Add Item</h2>
+      <Link to="/" className="text-blue-500 mb-4 hover:underline">Home</Link>
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 w-[400px] p-6 rounded-2xl bg-white/50 backdrop-blur-md shadow"
       >
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+
         <input
           type="text"
           placeholder="Item name"
@@ -45,10 +83,12 @@ const Add = () => {
           value={formData.name}
           onChange={handleChange}
           className="p-2 border rounded"
+          required
         />
 
-        <textarea
-          placeholder="Image link... "
+        <input
+          type="text"
+          placeholder="Image link..."
           name="image"
           value={formData.image}
           onChange={handleChange}
@@ -61,6 +101,7 @@ const Add = () => {
           value={formData.description}
           onChange={handleChange}
           className="p-2 border rounded"
+          required
         />
 
         <input
@@ -70,6 +111,7 @@ const Add = () => {
           value={formData.price}
           onChange={handleChange}
           className="p-2 border rounded"
+          required
         />
 
         <select
@@ -77,17 +119,19 @@ const Add = () => {
           value={formData.category_id}
           onChange={handleChange}
           className="p-2 border rounded"
+          required
         >
           <option value="">-- Select Category --</option>
           <option value="1">Sun Screen</option>
-          <option value="2">Moisterizer</option>
+          <option value="2">Moisturizer</option>
         </select>
 
         <button
           type="submit"
-          className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+          disabled={loading}
+          className={`p-2 rounded text-white ${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} transition`}
         >
-          Add Item
+          {loading ? "Adding..." : "Add Item"}
         </button>
       </form>
     </section>

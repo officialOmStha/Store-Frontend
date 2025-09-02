@@ -17,6 +17,8 @@ const Home = () => {
     }
   };
 
+  const token = localStorage.getItem("access");
+
   useEffect(() => {
     getItems();
     console.log(items);
@@ -27,6 +29,7 @@ const Home = () => {
       <h1 className="text-center text-4xl ">Nagina's Store</h1>
       <Link to={"add"}>Add item</Link>
       <Link to={"login"}>Login</Link>
+      <Link to={"protected"}>Protected</Link>
       {loading ? (
         <div>Loading ...</div>
       ) : (
