@@ -25,19 +25,16 @@ const Home = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-white flex flex-col items-center justify-center">
-      <h1 className="text-center text-4xl ">Nagina's Store</h1>
-      <Link to={"add"}>Add item</Link>
-      <Link to={"login"}>Login</Link>
-      <Link to={"protected"}>Protected</Link>
+    <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-20 bg-white flex flex-col items-center justify-center">
+      <h1 className="text-center text-4xl md:mt-6 mt-20 text-blue-600">Nagina's Store</h1>
       {loading ? (
         <div>Loading ...</div>
       ) : (
-        <div className="flex flex-wrap gap-6 w-full mt-8 items-center justify-center">
+        <div className="flex flex-col md:flex-row md:flex-wrap gap-6 w-full mt-8 items-center justify-center">
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col items-center w-[30%] p-4 border rounded-lg shadow bg-gray-50 transition-transform hover:translate-y-[-8px]"
+              className="flex flex-col items-center w-full md:w-[30%] p-4 border rounded-lg shadow bg-gray-50 transition-transform hover:translate-y-[-8px]"
             >
               <img 
               src={item.image} 

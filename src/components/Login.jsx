@@ -24,7 +24,7 @@ const Login = () => {
       localStorage.setItem("refresh", res.data.refresh);
 
       // Redirect to protected page
-      navigate("/protected");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError("Invalid username or password");

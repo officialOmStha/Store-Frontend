@@ -1,7 +1,8 @@
 // src/components/Add.jsx
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Add = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const Add = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   // Update form data when user types/selects
   const handleChange = (e) => {
@@ -61,14 +64,13 @@ const Add = () => {
       setError(err.response?.data?.detail || "Failed to add item. Check console.");
     } finally {
       setLoading(false);
+      navigate("/")
     }
   };
 
   return (
     <section className="w-full min-h-[100vh] p-4 md:px-20 md:py-15 bg-gray-100 flex flex-col items-center justify-center">
-      <h2 className="text-2xl font-bold mb-4">Add Item</h2>
-      <Link to="/" className="text-blue-500 mb-4 hover:underline">Home</Link>
-
+      <h2 className="text-2xl font-bold mb-4 mt-6">Add Item</h2>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 w-[400px] p-6 rounded-2xl bg-white/50 backdrop-blur-md shadow"
@@ -124,6 +126,7 @@ const Add = () => {
           <option value="">-- Select Category --</option>
           <option value="1">Sun Screen</option>
           <option value="2">Moisturizer</option>
+          <option value="3">Lipstick</option>
         </select>
 
         <button
